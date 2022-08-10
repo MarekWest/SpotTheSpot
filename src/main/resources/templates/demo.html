@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SpotTheSpot</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>SpotTheSpot</h1>
+<h3 th:text="${zeitstempel}" />
+<form>
+    <table>
+        <tbody>
+        <tr>
+            <td>Windmessung in:</td>
+            <td>
+                <input checked="checked" name="windmessung" type="radio" value="km/h" /> km/h
+                <input name="windmessung" type="radio" value="m/s" /> m/s
+                <input name="windmessung" type="radio" value="Bft" /> Bft
+            </td>
+        </tr>
+        <tr>
+            <td>Windgeschwidigkeit(min):</td>
+            <td>
+                <input maxlength="50" name="minWindspeed" size="45" type="number" />
+            </td>
+        </tr>
+        <tr>
+            <td>Windgeschwidigkeit(max):</td>
+            <td>
+                <input name="maxWindspeed" size="45" type="number" />
+            </td>
+        </tr>
+        <tr>
+            <td>Temperatur(min):</td>
+            <td>
+                <input name="minTemperatur" size="45" type="number" />
+            </td>
+        </tr>
+        <tr>
+            <td>Spots:</td>
+            <td>
+                <input name="ort" required size="45" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="spotsTheSpot!" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<span th:text = "${exceptionMessage}"> </span>
+<div th:if = "${ort != null && exceptionMessage == null}">
+    <ol>
+        <li th:each="spotInfo : ${SpotInfo}" th:text="${spotInfo}"/>
+    </ol>
+    <h4>Empfehlungen</h4>
+    <ol>
+        <li th:each="spotEmpfehlung : ${SpotEmpfehlung}" th:text="${spotEmpfehlung}"/>
+    </ol>
+</div>
+
+</body>
+</html>
