@@ -76,19 +76,19 @@ public class Spot {
     }
 
     protected static String beautifulDateForPrinting(LocalDateTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM' 'kk'Uhr'");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM' at 'kk' o`clock'");
         return time.format(formatter);
     }
 
     protected static String windDegreeForPrinting(int degree) {
-        if (degree < 23 || degree >= 338) return "Nord     ";
-        if (degree < 68) return "Nord-Ost "; //45
-        if (degree < 113) return "Ost      "; //90
-        if (degree < 158) return "Süd-Ost  ";//135
-        if (degree < 203) return "Süd      ";//180
-        if (degree < 248) return "Süd-West "; //225
-        if (degree < 293) return "West     "; //270
-        if (degree < 338) return "Nord-West"; //315
+        if (degree < 23 || degree >= 338) return "north    ";
+        if (degree < 68) return "north-east"; //45
+        if (degree < 113) return "east      "; //90
+        if (degree < 158) return "south-east  ";//135
+        if (degree < 203) return "south     ";//180
+        if (degree < 248) return "south-west"; //225
+        if (degree < 293) return "west     "; //270
+        if (degree < 338) return "north-west"; //315
 
         else return "DirectionFailed";
     }

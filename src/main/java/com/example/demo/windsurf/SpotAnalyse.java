@@ -11,14 +11,14 @@ public class SpotAnalyse {
 
     public static void main(String[] args) throws SpotNotFoundException {
         if (args.length < 1) {
-            System.out.println("Gebe deine(n) gewünschten windsurf.Spot(s) ein: '<ort>,<land> ... ...'");
+            System.out.println("Enter your desired Spot(s): '<city>,<country-shortcut> ... ...'");
             return;
         }
         SurfConditions surfConditions = new SurfConditions(4.5, 8, 16); //example
         List<Spot> chosenSpots = chooseSpots(args, surfConditions);
         if (chosenSpots.isEmpty()) { //keine Einträge gefunden
-            System.out.printf("Leider sind keine Einträge für deine Bedingungen vorhanden.%n" +
-                    "Tipp: Ergänze weitere Spots oder lockere deine Bedingungen.");
+            System.out.printf("Sorry, there are no entries for your conditions.%n" +
+                    "Tip: Add more spots or loosen your conditions.");
             System.exit(0);
         } else {
             List<String> recommendedSpots = findRecommendedSpot(chosenSpots);
@@ -60,17 +60,17 @@ public class SpotAnalyse {
     }
 
     private static void addRecommendedSpot(List<String> recommendedSpotPrint, Spot premiumSpot, int inARow) {
-        recommendedSpotPrint.add(String.format("In %s sind ab dem %s mind. %dStunden lang hintereinander perfekte Bedingungen.",
+        recommendedSpotPrint.add(String.format("In %s are from %s at least %hours perfect conditions in a row.",
                 premiumSpot.name, beautifulDateForPrinting(premiumSpot.getTime()), (inARow - 1) * 3));
     }
 
     private static void sendAlarm(List<Spot> chosenSpot, List<String> recommendedSpot) {
-        System.out.println("    Spot   |  Datum  | Windstärke |Windrichtung|Temperatur");
+        System.out.println("    Spot   |  Date  | Windspeed |Winddirection|Temperature");
         System.out.println("----------------------------------------------------------");
         chosenSpot.forEach(SpotAnalyse::alarmWithKmh);
-        System.out.printf("%nEmpfehlung:%n");
+        System.out.printf("%nRecommendation:%n");
         if (recommendedSpot.isEmpty()) {
-            System.out.println("Keine klaren Empfehlungen vorhanden.");
+            System.out.println("No recommendations available.");
         } else {
             for (String recommended : recommendedSpot) {
                 System.out.println(recommended);
