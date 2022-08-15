@@ -8,16 +8,15 @@
 </head>
 <body>
 <h1>SpotTheSpot</h1>
-<h3 th:text="${zeitstempel}" />
 <form>
     <table>
         <tbody>
         <tr>
             <td>Windmessung in:</td>
             <td>
-                <input checked="checked" name="windmessung" type="radio" value="km/h" /> km/h
-                <input name="windmessung" type="radio" value="m/s" /> m/s
-                <input name="windmessung" type="radio" value="Bft" /> Bft
+                <input checked="checked" name="windUnit" type="radio" value="KM_PER_H" /> km/h
+                <input name="windUnit" type="radio" value="M_PER_S" /> m/s
+                <input name="windUnit" type="radio" value="BFT" /> Bft
             </td>
         </tr>
         <tr>
@@ -58,7 +57,7 @@
     <ol>
         <li th:each="spotInfo : ${SpotInfo}" th:text="${spotInfo}"/>
     </ol>
-    <h4>Empfehlungen</h4>
+    <h4>recommendation</h4>
     <ol>
         <li th:each="spotEmpfehlung : ${SpotEmpfehlung}" th:text="${spotEmpfehlung}"/>
     </ol>

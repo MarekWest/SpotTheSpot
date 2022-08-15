@@ -16,10 +16,11 @@ public class DemoController {
 
     @GetMapping
     public String demo(Model model, @RequestParam(required = false) String ort,
+                       @RequestParam(required = false) String windUnit,
                        @RequestParam(required = false, defaultValue = "0") double minWindspeed,
                        @RequestParam(required = false, defaultValue = "100") double maxWindspeed,
                        @RequestParam(required = false, defaultValue = "0") double minTemperatur) {
-        model.addAttribute("zeitstempel", LocalDateTime.now());
+        model.addAttribute("windUnit", windUnit);
         model.addAttribute("minWindspeed", minWindspeed);
         model.addAttribute("maxWindspeed", maxWindspeed);
         model.addAttribute("minTemperatur", minTemperatur);
@@ -28,7 +29,7 @@ public class DemoController {
             List<Spot> chosenSpot = null;
             try {
                 chosenSpot = SpotAnalyse.chooseSpots(getStringArray(ort),
-                        new SurfConditions(minWindspeed, maxWindspeed, minTemperatur));
+                        new SurfConditions(minWindspeed, maxWindspeed, minTemperatur,WindUnit.valueOf(windUnit)));
             } catch (SpotNotFoundException e) {
                 String exceptionMessage = e.getMessage();
                 model.addAttribute("exceptionMessage", exceptionMessage);

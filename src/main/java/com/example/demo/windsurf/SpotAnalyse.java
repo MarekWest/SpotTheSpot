@@ -9,12 +9,14 @@ import static com.example.demo.windsurf.Spot.*;
 
 public class SpotAnalyse {
 
+    //static String windUnit;
     public static void main(String[] args) throws SpotNotFoundException {
         if (args.length < 1) {
             System.out.println("Enter your desired Spot(s): '<city>,<country-shortcut> ... ...'");
             return;
         }
-        SurfConditions surfConditions = new SurfConditions(4.5, 8, 16); //example
+        WindUnit windUnit = WindUnit.BFT;
+        SurfConditions surfConditions = new SurfConditions(4.0, 10, 16, windUnit); //example
         List<Spot> chosenSpots = chooseSpots(args, surfConditions);
         if (chosenSpots.isEmpty()) { //keine Einträge gefunden
             System.out.printf("Sorry, there are no entries for your conditions.%n" +

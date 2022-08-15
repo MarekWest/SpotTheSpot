@@ -29,9 +29,9 @@ public class Spot {
 
 
     public boolean checkConditions(SurfConditions cond) {
-        return (this.getWindSpeed() >= cond.minWind()
-                && this.getWindSpeed() <= cond.maxWind()
-                && this.getTemperatur() >= cond.temperature()
+        return (this.getWindSpeed() >= cond.getMinWind()
+                && this.getWindSpeed() <= cond.getMaxWind()
+                && this.getTemperatur() >= cond.getTemperature()
                 && !this.isThunderstorm()
                 && this.isDay());
     }
@@ -88,9 +88,7 @@ public class Spot {
         if (degree < 203) return "south     ";//180
         if (degree < 248) return "south-west"; //225
         if (degree < 293) return "west     "; //270
-        if (degree < 338) return "north-west"; //315
-
-        else return "DirectionFailed";
+        return "north-west"; //315
     }
 
     protected static double msInKmh(double mPerS) {
@@ -99,5 +97,13 @@ public class Spot {
 
     protected static double msInBft(double mPerS) {
         return (Math.pow((mPerS / 0.836), (double) 2 / 3));
+    }
+
+    protected static double kmhInMs(double mPerS) {
+        return mPerS / 3.6;
+    }
+
+    protected static double bftInMs(double bft) {
+        return Math.pow(bft, (double) 3/2) * 0.836;
     }
 }
