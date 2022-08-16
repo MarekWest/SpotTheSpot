@@ -46,7 +46,7 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="spotsTheSpot!" />
+                <input type="submit" value="spotTheSpot!" />
             </td>
         </tr>
         </tbody>
@@ -54,10 +54,11 @@
 </form>
 <span th:text = "${exceptionMessage}"> </span>
 <div th:if = "${ort != null && exceptionMessage == null}">
+    <span th:text = "${tableHeading}"> </span>
     <ol>
         <li th:each="spotInfo : ${SpotInfo}" th:text="${spotInfo}"/>
     </ol>
-    <h4>recommendation</h4>
+    <h4>Recommendation</h4>
     <ol>
         <li th:each="spotEmpfehlung : ${SpotEmpfehlung}" th:text="${spotEmpfehlung}"/>
     </ol>

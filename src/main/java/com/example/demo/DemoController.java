@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -27,15 +26,18 @@ public class DemoController {
         if(ort != null) {
             model.addAttribute("ort", ort);
             List<Spot> chosenSpot = null;
+            SurfConditions surfConditions = new SurfConditions(minWindspeed, maxWindspeed, minTemperatur, WindUnit.valueOf(windUnit));
             try {
                 chosenSpot = SpotAnalyse.chooseSpots(getStringArray(ort),
-                        new SurfConditions(minWindspeed, maxWindspeed, minTemperatur,WindUnit.valueOf(windUnit)));
+                        surfConditions);
             } catch (SpotNotFoundException e) {
                 String exceptionMessage = e.getMessage();
                 model.addAttribute("exceptionMessage", exceptionMessage);
                 return "demo";
             }
-            model.addAttribute("SpotInfo", chosenSpot);
+            //just a demo version
+            model.addAttribute("tableHeading", "---------Spot--------|------Date------|Windspeed |Winddirection|Temperature---------");
+            model.addAttribute("SpotInfo", Spot.spotListToString(chosenSpot, surfConditions));
             model.addAttribute("SpotEmpfehlung", SpotAnalyse.findRecommendedSpot(chosenSpot));
         }
         return "demo"; //namen einer HTML datei

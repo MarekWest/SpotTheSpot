@@ -2,6 +2,8 @@ package com.example.demo.windsurf;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Spot {
 
@@ -73,6 +75,30 @@ public class Spot {
         return String.format("%s %s %.2fm/s %.2fkm/h %.2fBft    %s     %.0f°C%n",
                 this.name, beautifulDateForPrinting(this.getTime()), this.getWindSpeed(), msInKmh(this.getWindSpeed()), msInBft(this.getWindSpeed()),
                 windDegreeForPrinting(this.getWindDirection()), this.getTemperatur());
+    }
+    private String toString(SurfConditions conditions) {
+        String firstPart = String.format("%s %s ",
+                this.name, beautifulDateForPrinting(this.getTime()), this.getWindSpeed());
+        String windUnit = switch (conditions.windUnit) {
+            case M_PER_S -> String.format("%.2fm/s ",
+                    this.getWindSpeed());
+            case KM_PER_H -> String.format("%.2fkm/h ",
+                    msInKmh(this.getWindSpeed()));
+            case BFT -> String.format("%.2fBft ",
+                    msInBft(this.getWindSpeed()));
+        };
+        String lastPart = String.format("%s %.0f°C%n",
+                windDegreeForPrinting(this.getWindDirection()), this.getTemperatur());
+        return firstPart + windUnit + lastPart;
+    }
+
+    public static List<String> spotListToString(List<Spot> chosenSpots, SurfConditions conditions) {
+        List<String> stringList = new ArrayList<>();
+        for (Spot chosenSpot:
+             chosenSpots) {
+            stringList.add(chosenSpot.toString(conditions));
+        }
+        return stringList;
     }
 
     protected static String beautifulDateForPrinting(LocalDateTime time) {
